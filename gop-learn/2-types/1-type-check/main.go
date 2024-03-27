@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"go/token"
 	"go/types"
-	"gop-learn/gop-learn/2-types/1-type-check/load"
+	"gop-learn/gop-learn/2-types/load"
 )
 
 func main() {
