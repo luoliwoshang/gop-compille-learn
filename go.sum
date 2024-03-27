@@ -1,0 +1,6 @@
+github.com/goplus/gogen v1.15.1 h1:iz/fFpOeldjwmnjLzEdNsZF2mCf+sOHJavbAvV3o7sY=
+github.com/goplus/gogen v1.15.1/go.mod h1:92qEzVgv7y8JEFICWG9GvYI5IzfEkxYdsA1DbmnTkqk=
+github.com/goplus/gop v1.2.5 h1:kBCcvJ7ONt3IqTUTNGb+n9JO1nwTp5STg1UUSEfvz/k=
+github.com/goplus/gop v1.2.5/go.mod h1:5rLlryvlZhWLIBw1Rok8s0uvyO54vcYw/7sFLhqtNTc=
+github.com/qiniu/x v1.13.9 h1:OUcQZSze1oTO5pzrhsepTUvEb9K9WtOiqZomWffFGWE=
+github.com/qiniu/x v1.13.9/go.mod h1:INZ2TSWSJVWO/RuELQROERcslBwVgFG7MkTfEdaQz9E=
