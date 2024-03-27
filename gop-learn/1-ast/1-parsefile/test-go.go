@@ -12,6 +12,7 @@ import (
 
 func TestGo() {
 	fset := token.NewFileSet()
+	parser.ParseFile(fset, "./testdata/test.go", nil, parser.ParseComments)
 	f, err := parser.ParseFile(fset, "./testdata/test.go", nil, parser.ParseComments)
 	// 在这个示例中，使用parser.ParseFile函数解析了名为test.gop的Go源代码文件。
 	// 如果源代码中存在语法错误，parser.ParseFile函数将返回一个非空的错误。根据错误信息来定位和修复语法错误。
@@ -47,7 +48,9 @@ func TestGo() {
 			for _, spec := range genDecl.Specs {
 				if valueSpec, ok := spec.(*ast.ValueSpec); ok {
 					for _, ident := range valueSpec.Names {
-						fmt.Println("Variable:", ident.Name)
+						// 多个文件的情况下，每个文件的base值不同，fset.Position会根据ident.Pos在的区间，计算是在哪个文件，然后再计算其行列
+						pos := fset.Position(ident.Pos())
+						fmt.Printf("标识符 %s 的位置信息：文件：%s，行：%d，列：%d\n", ident.Name, pos.Filename, pos.Line, pos.Column)
 					}
 				}
 			}
