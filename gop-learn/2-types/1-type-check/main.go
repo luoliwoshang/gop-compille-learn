@@ -11,7 +11,10 @@ func main() {
 	fset := token.NewFileSet()
 	pkg, info, err := load.LoadPackage(fset, "main", "./testdata/test.go")
 	if err != nil {
-		panic(err)
+		typeError := err.(types.Error)
+		pos := fset.Position(typeError.Pos)
+		fmt.Println(typeError.Msg)
+		fmt.Printf("文件%s,行%d,列%d,错误信息:%s", pos.Filename, pos.Line, pos.Column, typeError.Msg)
 	}
 	fmt.Println(pkg)
 	fmt.Println(pkg.Scope())
@@ -34,6 +37,5 @@ func main() {
 				fmt.Printf("Variable %s is unused\n", ident.Name)
 			}
 		}
-
 	}
 }
