@@ -16,7 +16,7 @@ import (
 	"github.com/goplus/mod/gopmod"
 )
 
-func LoadGopPackage(fset *token.FileSet, name string, filenames ...string) (*types.Package, *typesutil.Info, error) {
+func LoadGopPackage(fset *token.FileSet, name string, filenames ...string) (*types.Package, *typesutil.Info, []*ast.File, error) {
 	var files []*ast.File
 	var gofiles []*goast.File
 	for _, filename := range filenames {
@@ -24,7 +24,7 @@ func LoadGopPackage(fset *token.FileSet, name string, filenames ...string) (*typ
 		case ".go":
 			f, err := goparser.ParseFile(fset, filename, nil, goparser.ParseComments)
 			if err != nil {
-				return nil, nil, err
+				return nil, nil, files, err
 			}
 			gofiles = append(gofiles, f)
 		case ".gop", ".gox":
@@ -34,7 +34,7 @@ func LoadGopPackage(fset *token.FileSet, name string, filenames ...string) (*typ
 			}
 			f, err := parser.ParseFile(fset, filename, nil, mode)
 			if err != nil {
-				return nil, nil, err
+				return nil, nil, files, err
 			}
 			files = append(files, f)
 		}
@@ -59,5 +59,5 @@ func LoadGopPackage(fset *token.FileSet, name string, filenames ...string) (*typ
 	}
 	check := typesutil.NewChecker(conf, chkOpts, nil, info)
 	err := check.Files(gofiles, files)
-	return pkg, info, err
+	return pkg, info, files, err
 }

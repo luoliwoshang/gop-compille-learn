@@ -1,13 +1,13 @@
-package main
+package testdata
 
 import "fmt"
 
 var a = 1
 var b = 2
-var ad int = 3
 
-func Hello() {
+func Hello() string {
 	c := a
 	_ = c
 	fmt.Println("hello world")
+	return "hhhh"
 }

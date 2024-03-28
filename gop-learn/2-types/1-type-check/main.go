@@ -9,7 +9,7 @@ import (
 
 func main() {
 	fset := token.NewFileSet()
-	pkg, info, err := load.LoadPackage(fset, "main", "./testdata/test.go")
+	pkg, info, _, err := load.LoadPackage(fset, "main", "./testdata/test.go")
 	if err != nil {
 		typeError := err.(types.Error)
 		pos := fset.Position(typeError.Pos)

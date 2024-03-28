@@ -8,14 +8,14 @@ import (
 	"go/types"
 )
 
-func LoadPackage(fset *token.FileSet, name string, filenames ...string) (*types.Package, *types.Info, error) {
+func LoadPackage(fset *token.FileSet, name string, filenames ...string) (*types.Package, *types.Info, []*ast.File, error) {
 	var files []*ast.File
 	for _, filename := range filenames {
 		// 解析每个源代码文件
 
 		f, err := parser.ParseFile(fset, filename, nil, parser.ParseComments)
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, files, err
 		}
 		files = append(files, f)
 	}
@@ -42,5 +42,5 @@ func LoadPackage(fset *token.FileSet, name string, filenames ...string) (*types.
 	// info 是 *types.Info 类型的对象，用于存储类型检查的结果信息。
 	check := types.NewChecker(conf, fset, pkg, info)
 	err := check.Files(files)
-	return pkg, info, err
+	return pkg, info, files, err
 }
